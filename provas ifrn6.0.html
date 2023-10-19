@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Link Gerador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #75d0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        img {
+            max-width: 150px;
+            max-height: 150px;
+        }
+
+        main {
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            color: #2E7D32;
+        }
+
+        input {
+            width: 100px;
+            padding: 8px;
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: white;
+            color: #4CAF50;
+            padding: 10px 20px;
+            border: 1px solid #4CAF50;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background-color: #f4f4f4;
+        }
+
+        p {
+            margin-top: 15px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        p.visible {
+            opacity: 1;
+        }
+
+        .youtube-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: white;
+            color: #ff0000;
+            padding: 10px 20px;
+            border: 1px solid #ff0000;
+            cursor: pointer;
+        }
+
+        .youtube-button:hover {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://yt3.googleusercontent.com/8B5Z2AokK5aJONQwCunaeqsKjeSXvQTbuCLYH8ayszNld6ndQaNdV0xrs5zyDQN6FvJM6fWWBA=s176-c-k-c0x00ffffff-no-rj" alt="Logo">
+    </header>
+
+    <main>
+        <label for="ano">Por favor, insira um ano entre 2010 e 2023:</label>
+        <input type="number" name="ano" id="ano" required>
+        <button onclick="gerarLink()">Gerar Link</button>
+        
+        <p id="link" class="hidden"></p>
+        <button id="irParaLink" style="display:none;" onclick="irParaLink()">Ir para o link</button>
+        <p id="error"></p>
+    </main>
+
+    <button class="youtube-button" onclick="window.location.href='https://www.youtube.com/@MatematicaDescomplicada-mf9xh'">Ir para o YouTube</button>
+
+    <script>
+        var linkGlobal = "";
+
+        function gerarLink() {
+            // Obter o valor do ano
+            var ano = document.getElementById('ano').value;
+
+            // Verificar se o ano está no intervalo correto
+            if (ano >= 2010 && ano <= 2023) {
+                // Substituir os "XXXX" no link pelo ano
+                var link = `https://portal.ifrn.edu.br/processos-seletivos/estude-no-ifrn/cursos-tecnicos-integrados-exame-de-selecao/exame-de-selecao-${ano}/`;
+
+                linkGlobal = link;
+
+                // Exibir o link
+                var linkElement = document.getElementById('link');
+                linkElement.innerHTML = 'Link gerado com sucesso!';
+                linkElement.classList.add('visible');
+
+                // Exibir botão
+                document.getElementById('irParaLink').style.display = 'block';
+
+                document.getElementById('error').innerHTML = '';
+            } else {
+                // Exibir mensagem de erro
+                document.getElementById('error').innerHTML = 'Ano inválido. Por favor, insira um ano entre 2010 e 2023.';
+                document.getElementById('link').innerHTML = '';
+                document.getElementById('irParaLink').style.display = 'none';
+            }
+        }
+
+        function irParaLink() {
+            window.location.href = linkGlobal;
+        }
+    </script>
+</body>
+</html>
